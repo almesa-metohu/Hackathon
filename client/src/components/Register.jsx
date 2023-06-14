@@ -37,9 +37,9 @@ const Register = () => {
                 confirmPassword
             }, { withCredentials: true });
 
-            if (response.status === 200) {w
+            if (response.status === 200) {
                 localStorage.setItem('userId', JSON.stringify(response.data.user._id));
-                navigate("/home");
+                navigate("/");
             }
         }   catch (error) {
             console.log(error)

@@ -35,10 +35,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    rides: {
+    Ride: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ride'
-    }
+    }],
+    driverDetails : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Driver'
+    }]
 }, {timestamps: true})
 
 UserSchema.virtual('confirmPassword')

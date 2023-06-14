@@ -27,9 +27,9 @@ const Login = () => {
             if (response.status === 200) {
                 console.log(response)
                 localStorage.setItem('userId',response.data.user._id);
-                console.log(localStorage.getItem('userId'))
+                /* console.log(localStorage.getItem('userId')) */
 
-                navigate("/home");
+                navigate("/");
             }
         } catch (error) {
             console.log(error)

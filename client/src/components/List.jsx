@@ -16,8 +16,8 @@ const Profile = (props) => {
     console.log(userToken)
     axios.get('http://localhost:8000/api/rides', {withCredentials: true})
       .then(res => {
-        console.log(res.data)
-        setRides(res.data.filter(word2=> word2.location.toLowerCase().includes(word.toLowerCase())  ))})
+/*         console.log(res.data)
+ */        setRides(res.data.filter(word2=> word2.location.toLowerCase().includes(word.toLowerCase())  ))})
       .catch(err => {
         console.log(err)
         err.response.status === 401 ? navigate('/') : console.log(err)

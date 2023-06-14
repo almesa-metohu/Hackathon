@@ -9,14 +9,13 @@ module.exports = {
                 ride.save()
                 User.findOneAndUpdate(
                     {_id: req.params.userId},
-                    { $push: { rides: ride._id } },
-                    {new: true, runValidators: true}
+                    { $push: { Ride: ride._id } }
                 )
-                    .populate('rides')
-                    .then((updatedUser) => {
+                .populate('Ride')
+                .then((updatedUser) => {
                         res.status(200).json({ message: 'Ride created', user: updatedUser })
                     })
-                    .catch(err => {
+                .catch(err => {
                         console.log('Failed to update user with ride id' + err)
                         res.json(err)
                     })

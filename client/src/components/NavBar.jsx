@@ -10,12 +10,22 @@ function Navbar(props) {
     const navigate = useNavigate()
     const {word, setWord} = props
     const [words, setWords2] = useState()
+    const [role, setRole] = useState("")
+
+    const userId =localStorage.getItem('userId')
+
+    useEffect(()=> {
+        axios.get('http://localhost:8000/api/user/'+userId)
+            .then(res => {setRole(res.data.role)})
+            .catch(err => console.log(err))
+    }, [])
+
     const logOut = () => {
         console.log('logging out')
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: 'same-origin'})
             .then(e => {
                 localStorage.removeItem('userId');
-                navigate('/')
+                navigate('/auth')
             })
     }
     const getWord = () => {
@@ -31,12 +41,11 @@ function Navbar(props) {
                     </Link>
                     <Spacer />
                     <Box>
-                        <Link href="/be-a-driver" mr={4}>
-                            Be a driver
-                        </Link>
-                        <Link href="/add-a-ride" mr={4}>
+                        {role === "driver" ? <Link href="/add-a-ride" mr={4}>
                             Add a ride
-                        </Link>
+                        </Link> : <Link href="/be-a-driver" mr={4}>
+                            Be a driver
+                        </Link>}
                     </Box>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Menu>

@@ -37,14 +37,14 @@ const RideSchema = new mongoose.Schema({
         max: 5000,
         required: [true, 'Price/person is required']
     },
-    driver: {
+    driver: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
-    passangers: {
+    }],
+    passangers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    }],
 }, {timestamps: true})
 
 module.exports = mongoose.model('Ride', RideSchema)

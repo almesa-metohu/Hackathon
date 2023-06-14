@@ -17,10 +17,15 @@ const DriverSchema = new mongoose.Schema({
         type: String,
         required: [true, "Driver License is required"]
     },
+    idCard: {
+        type: String,
+        required: [true, "ID Card is required"]
+    },
     location: {
         type: String,
         required: [true, "Location is required"],
     },
+
 }, {timestamps: true})
 
 module.exports = mongoose.model('Driver', DriverSchema)

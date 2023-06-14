@@ -51,12 +51,13 @@ module.exports = {
 
     getOneUser: (req, res) => {
         User.findOne({_id: req.params.id})
-            .populate('rides')
+            .populate('Ride')
             .then(user => {
                 if(!user) {
                     return res.status(400).json({error: "User not found"})
                 }
                 else{
+                    console.log(user)
                     res.json(user)
                 }
             })
@@ -65,7 +66,7 @@ module.exports = {
 
     getUsers: (req, res) => {
         User.find()
-            .populate('rides')
+            .populate('Ride')
             .then(user => res.json(user))
             .catch(err => res.json(err))
     },
