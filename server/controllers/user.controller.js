@@ -52,12 +52,12 @@ module.exports = {
     getOneUser: (req, res) => {
         User.findOne({_id: req.params.id})
             .populate('Ride')
+            .populate('driverDetails')
             .then(user => {
                 if(!user) {
                     return res.status(400).json({error: "User not found"})
                 }
                 else{
-                    console.log(user)
                     res.json(user)
                 }
             })
@@ -67,6 +67,7 @@ module.exports = {
     getUsers: (req, res) => {
         User.find()
             .populate('Ride')
+            .populate('driverDetails')
             .then(user => res.json(user))
             .catch(err => res.json(err))
     },
@@ -84,8 +85,25 @@ module.exports = {
             
             return user.save();
         })
-            .then(updatedAuthor => {
-                res.json(updatedAuthor);
+            .then(updatedUser => {
+                res.json(updatedUser);
+            })
+            .catch(err => {
+                res.status(500).json({ error: err.errors });
+            });
+    },
+
+    changeRole: (req, res) => {
+        User.findOne({_id: req.params.id})
+            .then(user => {
+                if(!user) {
+                    return res.status(404).json({error: 'User not found'})
+                }
+                user.role = req.body.role
+                return user.save()
+            })
+            .then(updatedUser => {
+                res.json(updatedUser);
             })
             .catch(err => {
                 res.status(500).json({ error: err.errors });

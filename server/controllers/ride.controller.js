@@ -9,7 +9,8 @@ module.exports = {
                 ride.save()
                 User.findOneAndUpdate(
                     {_id: req.params.userId},
-                    { $push: { Ride: ride._id } }
+                    { $push: { Ride: ride._id } },
+                    {new: true, runValidators: true}
                 )
                 .populate('Ride')
                 .then((updatedUser) => {

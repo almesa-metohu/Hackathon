@@ -31,10 +31,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
-    requestForRole: {
-        type: String,
-        default: ""
-    },
     Ride: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ride'

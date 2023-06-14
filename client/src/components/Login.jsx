@@ -29,7 +29,7 @@ const Login = () => {
                 localStorage.setItem('userId',response.data.user._id);
                 /* console.log(localStorage.getItem('userId')) */
 
-                navigate("/");
+                navigate("/home");
             }
         } catch (error) {
             console.log(error)

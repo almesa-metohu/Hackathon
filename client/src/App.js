@@ -23,14 +23,15 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {role === "admin" ? <Routes>
-          <Route path="/" element={<Navigate to="/admin" />} />
-          <Route path='/admin' element={<AdminView />}/>
+        {role === "admin" ? 
+        <Routes>
+          <Route path="/" element={<Navigate to="/auth" />} />
+          <Route path='/home' element={<AdminView />}/>
           <Route path='/auth' element={<Authenticate />} />
-        </Routes> : <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
+        </Routes> : 
+        <Routes>
           <Route path='/auth' element={<Authenticate />} />
-          <Route path='/home' element={<Home />} />
+          <Route path='/home' element={<Home/>} />
           <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/recent-drives' element={<PreviousTripsList />} />
           <Route path='/be-a-driver' element={<DriverForm />} />

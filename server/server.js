@@ -11,8 +11,8 @@ app.use(cors({credentials: true, origin:'http://localhost:3000'}));
 
 app.use(express.json());                           
 app.use(express.urlencoded({ extended: true })); 
-/* require('./routes/pirate.routes')(app);
- */require('./routes/user.routes')(app)
+require('./routes/driver.routes')(app);
+require('./routes/user.routes')(app)
 require('./routes/ride.routes')(app)
 
 
