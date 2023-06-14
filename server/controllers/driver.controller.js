@@ -5,9 +5,11 @@ module.exports = {
     newDriver: (req, res) => {   //forma ku behet request per driver
         Driver.create(req.body)
             .then(driver => {
+                const driverId = driver._id
+                console.log(req.params.userId)
                 User.findOneAndUpdate(
                     {_id: req.params.userId},
-                    { $push: {driverDetails: driver._id}},
+                    { driverDetails: driverId },
                     {new: true, runValidators: true}
                 )
                 .populate('driverDetails')
@@ -26,7 +28,14 @@ module.exports = {
     },
 
     getDrivers: (req, res) => { //marrim request e drivers tek admin
-        Driver.find()
+        User.find({role: "driver"})
+        .populate('driverDetails')
+            .then(driver => res.json(driver))
+            .catch(err => res.json(err))
+    },
+
+    getRequests: (req, res) => { //marrim request e drivers tek admin
+        User.find({role: "user", driverDetails: { $exists: true, $ne: null }})
         .populate('driverDetails')
             .then(driver => res.json(driver))
             .catch(err => res.json(err))
@@ -35,6 +44,12 @@ module.exports = {
     deleteRequest: (req, res) => {     //kur shtypim accept ose decline request ajo do hiqet nga lista
         Driver.deleteOne({_id: req.params.id})
         .then(deletedRequest => res.json(deletedRequest))
+        .catch(err => res.json(err))
+    },
+
+    approveRequest: (req, res) => {
+        User.findOneAndUpdate({_id: req.params.id}, {role: "driver"}, {new: true, runValidators: true})
+        .then(updateRole => res.json(updateRole))
         .catch(err => res.json(err))
     }
 }

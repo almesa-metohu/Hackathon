@@ -39,7 +39,7 @@ const Register = () => {
 
             if (response.status === 200) {
                 localStorage.setItem('userId', JSON.stringify(response.data.user._id));
-                navigate("/");
+                navigate("/home");
             }
         }   catch (error) {
             console.log(error)
