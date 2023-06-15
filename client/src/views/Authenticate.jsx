@@ -12,7 +12,7 @@ import {
     Text,
 } from "@chakra-ui/react";
 
-const Authenticate = () => {
+const Authenticate = ({setRefresh}) => {
 
 
     return (
@@ -37,7 +37,7 @@ const Authenticate = () => {
                     </TabList>
                     <TabPanels>
                         <TabPanel>
-                            <Login/>
+                            <Login {...{setRefresh}}/>
                         </TabPanel>
                         <TabPanel>
                             <Register/>

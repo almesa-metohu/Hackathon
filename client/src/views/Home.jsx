@@ -13,7 +13,6 @@ const Home = () => {
     return (
         <div>
             <Navbar setWord={setWord} word={word}/>
-            <FeaturedLocations/>
             <Profile word={word} update={update} setUpdate={setUpdate} socket={socket}/>
         </div>
     )

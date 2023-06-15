@@ -1,187 +1,117 @@
-import { useState } from 'react';
-import {
-    Button,
-    VStack,
-    Heading,
-    Text,
-    useToast,
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
-    Tabs,
-    TabList,
-    TabPanels,
-    Tab,
-    TabPanel,
-    Badge,
-    Stack,
-} from '@chakra-ui/react';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Button, VStack, Heading, Flex, Box } from '@chakra-ui/react';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AdminView = () => {
-    const [isSuperUser, setIsSuperUser] = useState(false);
-    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-    const toast = useToast();
+    const [drivers, setDrivers] = useState([]);
     const [requests, setRequests] = useState([]);
-    const navigate = useNavigate()
+    const [update, setUpdate] = useState(false);
+    const navigate = useNavigate();
 
-    const createRequest = (role) => {
-        const newRequest = { id: Date.now(), role, status: 'Pending' };
-        setRequests([...requests, newRequest]);
-        toast({
-            title: 'Role change requested',
-            status: 'info',
-            duration: 3000,
-            isClosable: true,
-        });
-    };
-
-    const acceptRequest = (id) => {
-        const updatedRequests = requests.map((request) => {
-            if (request.id === id) {
-                return { ...request, status: 'Approved' };
-            }
-            return request;
-        });
-        setRequests(updatedRequests);
-        toast({
-            title: 'Request accepted',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-        });
-    };
+    useEffect(() => {
+        axios
+            .get('http://localhost:8000/api/getRequest/')
+            .then((res) => {
+                console.log(res);
+                setRequests(res.data);
+            })
+            .catch((err) => console.log(err));
+        axios
+            .get('http://localhost:8000/api/getDrivers/')
+            .then((res) => {
+                console.log(res);
+                setDrivers(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, [update]);
 
     const logOut = () => {
-        console.log('logging out')
-        axios.post('http://localhost:8000/api/logout', {}, {withCredentials: 'same-origin'})
-            .then(e => {
+        console.log('logging out');
+        axios
+            .post('http://localhost:8000/api/logout', {}, { withCredentials: 'same-origin' })
+            .then((e) => {
                 localStorage.removeItem('userId');
-                navigate('/auth')
-            })
-    }
+                navigate('/auth');
+            });
+    };
 
-    const rejectRequest = (id) => {
-        const updatedRequests = requests.map((request) => {
-            if (request.id === id) {
-                return { ...request, status: 'Rejected' };
-            }
-            return request;
-        });
-        setRequests(updatedRequests);
-        toast({
-            title: 'Request rejected',
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
+    const DeclineRequest = (driverId) => {
+        axios.get('http://localhost:8000/api/removeRequest/' + driverId).then((e) => {
+            setUpdate(!update);
         });
     };
 
-    const handleRoleChange = () => {
-        setIsConfirmationOpen(true);
+    const AcceptRequest = (userId) => {
+        axios.get('http://localhost:8000/api/updateRole/' + userId).then((e) => {
+            setUpdate(!update);
+        });
     };
 
-    const handleConfirmRoleChange = () => {
-        setIsSuperUser(!isSuperUser);
-        setIsConfirmationOpen(false);
-        createRequest(isSuperUser ? 'User' : 'Driver');
-    };
-
-    const handleRejectRoleChange = () => {
-        setIsConfirmationOpen(false);
+    const removeDriver = (userId) => {
+        axios.get('http://localhost:8000/api/removeDriver/' + userId).then((e) => {
+            setUpdate(!update);
+        });
     };
 
     return (
         <VStack spacing={4} align="start">
             <Heading size="md">User Management</Heading>
-            <Button
-                size="sm"
-                colorScheme="red"
-                onClick={logOut}
-            >
+            <Button size="sm" colorScheme="red" onClick={logOut}>
                 Log Out
             </Button>
+            <Box width="80%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
+                <Flex alignItems="center">
+                    <div>
+                        <p>Request</p>
+                        {requests ? (
+                            requests.map((request, index) => (
+                                <div key={index} style={{ width: '100%' }}>
+                                    {request.firstName}{' '}
+                                    <Button size="sm" colorScheme="teal" onClick={() => AcceptRequest(request._id)}>
+                                        Accept
+                                    </Button>{' '}
+                                    <Button size="sm" colorScheme="red" onClick={() => DeclineRequest(request._id)}>
+                                        Decline
+                                    </Button>
+                                </div>
+                            ))
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </Flex>
+            </Box>
 
-            {/* Admin Confirmation Dialog */}
-            <AlertDialog isOpen={isConfirmationOpen} leastDestructiveRef={undefined}>
-                <AlertDialogOverlay>
-                    <AlertDialogContent>
-                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                            Admin Confirmation
-                        </AlertDialogHeader>
-
-                        <AlertDialogBody>
-                            Are you sure you want to change the user's role?
-                        </AlertDialogBody>
-
-                        <AlertDialogFooter>
-                            <Button colorScheme="red" onClick={handleRejectRoleChange}>
-                                Decline
-                            </Button>
-                            <Button colorScheme="teal" ml={3} onClick={handleConfirmRoleChange}>
-                                Accept
-                            </Button>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialogOverlay>
-            </AlertDialog>
-
-            {/* Requests Tab */}
-            <Tabs isLazy>
-                <TabList>
-                    <Tab>Requests</Tab>
-                </TabList>
-                <TabPanels>
-                    <TabPanel>
-                        <Stack spacing={4} align="start">
-                            {requests.map((request) => (
-                                <Stack
-                                    key={request.id}
-                                    direction="row"
-                                    align="center"
-                                    justify="space-between"
-                                    p={4}
-                                    borderWidth={1}
-                                    borderRadius="md"
-                                    _hover={{ boxShadow: '0 0 5px teal' }}
-                                >
-                                    <Stack direction="column" spacing={2}>
-                                        <Text>{request.role}</Text>
-                                        <Badge
-                                            variant="subtle"
-                                            colorScheme={request.status === 'Approved' ? 'green' : 'red'}
-                                        >
-                                            {request.status}
-                                        </Badge>
-                                    </Stack>
-                                    <Stack direction="row" spacing={2} align="center">
-                                        <Button
-                                            size="sm"
-                                            colorScheme="teal"
-                                            onClick={() => acceptRequest(request.id)}
-                                            isDisabled={request.status !== 'Pending'}
-                                        >
-                                            Accept
-                                        </Button>
-                                        <Button
-                                            size="sm"
-                                            colorScheme="blue"
-                                            onClick={() => rejectRequest(request.id)}
-                                            isDisabled={request.status !== 'Pending'}
-                                        >
-                                            Reject
-                                        </Button>
-                                    </Stack>
-                                </Stack>
-                            ))}
-                        </Stack>
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
+            <Box width="97%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
+                <Flex alignItems="center" flexDirection='column'>
+                        <p>Drivers</p>
+                        {drivers ? (
+                            drivers.map((request, index) => (
+                                <div key={index} style={{ width: '100%' }}>
+                                    <Box display='flex'
+                                        justifyContent='space-between'
+                                        width="90%"
+                                        padding="4"
+                                        borderWidth="1px"
+                                        borderRadius="md"
+                                        _hover={{ outline: '2px solid teal' }}
+                                    >
+                                        <Flex alignItems="center" justifyContent='space-between' width='100%'>
+                                            {' '}
+                                            <Link to={`/driver/${request._id}`}>{request.firstName}</Link>{' '}
+                                            <Button size="sm" colorScheme="red" onClick={() => removeDriver(request._id)}>
+                                                Remove Driver
+                                            </Button>{' '}
+                                        </Flex>
+                                    </Box>
+                                </div>
+                            ))
+                        ) : (
+                            ''
+                        )}
+                </Flex>
+            </Box>
         </VStack>
     );
 };

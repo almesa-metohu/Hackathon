@@ -42,10 +42,22 @@ module.exports = {
     },
 
     deleteRequest: (req, res) => {     //kur shtypim accept ose decline request ajo do hiqet nga lista
-        Driver.deleteOne({_id: req.params.id})
-        .then(deletedRequest => res.json(deletedRequest))
+        // Driver.deleteOne({_id: req.params.id})
+        // .then(deletedRequest => res.json(deletedRequest))
+        // .catch(err => res.json(err))
+        User.findOneAndUpdate({_id: req.params.id}, {driverDetails: null}, {new: true, runValidators: true})
+        .then(updateRole => res.json(updateRole))
         .catch(err => res.json(err))
     },
+    removeDriver: (req, res) => {     //kur shtypim accept ose decline request ajo do hiqet nga lista
+        // Driver.deleteOne({_id: req.params.id})
+        // .then(deletedRequest => res.json(deletedRequest))
+        // .catch(err => res.json(err))
+        User.findOneAndUpdate({_id: req.params.id}, {driverDetails: null,role:"user"}, {new: true, runValidators: true})
+        .then(updateRole => res.json(updateRole))
+        .catch(err => res.json(err))
+    },
+   
 
     approveRequest: (req, res) => {
         User.findOneAndUpdate({_id: req.params.id}, {role: "driver"}, {new: true, runValidators: true})

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { VStack, FormControl, FormLabel, Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 
-const Login = () => {
+const Login = ({setRefresh}) => {
 
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
@@ -27,8 +27,9 @@ const Login = () => {
             if (response.status === 200) {
                 console.log(response)
                 localStorage.setItem('userId',response.data.user._id);
+                setRefresh(Math.random())
                 /* console.log(localStorage.getItem('userId')) */
-
+                // response.data : 
                 navigate("/home");
             }
         } catch (error) {

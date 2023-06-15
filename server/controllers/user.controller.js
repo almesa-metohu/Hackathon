@@ -25,12 +25,14 @@ module.exports = {
         const user = await User.findOne({ email: req.body.email })
 
         if(user === null) {
+            console.log(user)
             return res.status(400).json({ errors: { email: { message: "There is no user with this email" } } });
         }
 
-        const correctPassword = await bcrypt.compare(req.body.password, user.password);
+        const correctPassword = bcrypt.compare(req.body.password, user.password);
 
         if (!correctPassword) {
+
             return res.status(400).json({ errors: { password: { message: "The passcode is incorrect" } } });
         }
 

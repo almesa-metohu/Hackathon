@@ -3,6 +3,7 @@ const User = require('../models/user.model')
 
 module.exports = {
     newRide: (req, res) => {
+        console.log(req.body)
         Ride.create(req.body)
             .then(ride => {
                 ride.driver = req.params.userId,
@@ -32,11 +33,32 @@ module.exports = {
             .then(ride => res.json(ride))
             .catch(err => res.json(err))
     },
+    removeRide: (req, res) => {     //kur shtypim accept ose decline request ajo do hiqet nga lista
+        // Driver.deleteOne({_id: req.params.id})
+        // .then(deletedRequest => res.json(deletedRequest))
+        // .catch(err => res.json(err))
+        Ride.deleteOne({_id: req.params.id})
+        .then(updateRole => res.json(updateRole))
+        .catch(err => res.json(err))
+    },
 
     getRides: (req, res) => {
         Ride.find()
         .populate('driver')
+        .populate('passangers')
             .then(ride => res.json(ride))
             .catch(err => res.json(err))
+    },
+    // getPassengers: (req, res) => {
+    //     Ride.find()
+    //     .populate('driver')
+    //         .then(ride => res.json(ride))
+    //         .catch(err => res.json(err))
+    // },
+    addRide: (req, res) => {
+        console.log(req.body)
+        Ride.findOneAndUpdate({_id: req.params.id}, { $push: { passangers:req.body.userId } }, {new: true, runValidators: true})
+        .then(updateRole => res.json(updateRole))
+        .catch(err => res.json(err))
     }
 }

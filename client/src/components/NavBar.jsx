@@ -34,8 +34,9 @@ function Navbar(props) {
 
     return (
         <Box>
-            <Box bg="gray.200" py={4} px={8}>
+            <Box py={4} px={8}>
                 <Flex alignItems="center">
+                    <Image width='70px' src="https://img.freepik.com/premium-vector/car-pin-location-logo-design_412311-3774.jpg" />
                     <Link href="/home" fontSize="xl" fontWeight="bold">
                         Ikim? IKIM!
                     </Link>

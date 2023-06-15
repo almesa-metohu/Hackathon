@@ -8,36 +8,42 @@ import EditProfile from './views/EditProfile';
 import PreviousTripsList from './views/PreviousTripsList';
 import axios from 'axios';
 import DriverForm from './components/DriverForm';
+import AddRide from './components/AddRide';
 
 function App() {
 
   const userId = localStorage.getItem('userId')
   const [role, setRole] = useState("")
+  const [refresh, setRefresh] = useState()
 
   useEffect(() => {
+    userId?
     axios.get('http://localhost:8000/api/user/' + userId)
       .then(res => { setRole(res.data.role) })
-      .catch(err => console.log(err))
-  }, [])
+      .catch(err => console.log(err)) : console.log("errors")
+  }, [refresh])
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        {role === "admin" ? 
-        <Routes>
-          <Route path="/" element={<Navigate to="/auth" />} />
-          <Route path='/home' element={<AdminView />}/>
-          <Route path='/auth' element={<Authenticate />} />
-        </Routes> : 
-        <Routes>
-          <Route path='/auth' element={<Authenticate />} />
-          <Route path='/home' element={<Home/>} />
-          <Route path='/edit-profile' element={<EditProfile />} />
-          <Route path='/recent-drives' element={<PreviousTripsList />} />
-          <Route path='/be-a-driver' element={<DriverForm />} />
-        </Routes>}
-      </div>
-    </BrowserRouter>
+    
+     <BrowserRouter>
+    <div className="App">
+      {role === "admin" ? 
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" />} />
+        <Route path='/home' element={<AdminView />}/>
+        <Route path='/auth' element={<Authenticate {...{setRefresh}}/>} />
+      </Routes> : 
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" />} />
+        <Route path='/auth' element={<Authenticate {...{setRefresh}}/>} />
+        <Route path='/home' element={<Home/>} />
+        <Route path='/edit-profile' element={<EditProfile />} />
+        <Route path='/recent-drives' element={<PreviousTripsList />} />
+        <Route path='/be-a-driver' element={<DriverForm />} />
+        <Route path='/add-a-ride' element={<AddRide />} />
+      </Routes>}
+    </div>
+  </BrowserRouter> 
   );
 }
 

@@ -28,7 +28,10 @@ const DriverForm = (props) => {
     };
 
     return (
+        <>
+        {/* <p>tesdt</p>  */}
         <Center>
+            
             <VStack spacing='5px' maxWidth={400} mt={10}>
                 <Heading as="h1" size="xl" mb={10}>
                     Driver Registration
@@ -59,6 +62,7 @@ const DriverForm = (props) => {
                 </Button>
             </VStack>
         </Center>
+        </>
     )
 }
 
