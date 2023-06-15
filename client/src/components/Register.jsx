@@ -137,15 +137,6 @@ const Register = () => {
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
-            <FormControl>
-                <FormLabel>Upload your photo</FormLabel>
-                <Input
-                    type='file'
-                    p={1.5}
-                    accept="image/*"
-                    onChange={(e) => postDetails(e.target.value[0])}
-                    />
-            </FormControl>
 
             <Button
                 colorScheme="blue"

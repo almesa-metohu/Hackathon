@@ -67,14 +67,6 @@ const AdminView = () => {
                         {requests ? (
                             requests.map((request, index) => (
                                 <div key={index} style={{ width: '100%' }}>
-                                    <Box display='flex'
-                                        justifyContent='space-between'
-                                        width="90%"
-                                        padding="4"
-                                        borderWidth="1px"
-                                        borderRadius="md"
-                                        _hover={{ outline: '2px solid teal' }}
-                                    ></Box>
                                     {request.firstName}{' '}
                                     <Button size="sm" colorScheme="teal" onClick={() => AcceptRequest(request._id)}>
                                         Accept
