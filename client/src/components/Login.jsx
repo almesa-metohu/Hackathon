@@ -47,6 +47,7 @@ const Login = ({setRefresh}) => {
                     placeholder='Enter your email'
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                {validation.email? validation.email.message:""}
             </FormControl>
             <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
@@ -62,6 +63,8 @@ const Login = ({setRefresh}) => {
                         </Button>
                     </InputRightElement>
                 </InputGroup>
+                {validation.password? validation.password.message:""}
+
             </FormControl>
 
             <Button

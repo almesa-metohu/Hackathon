@@ -8,6 +8,11 @@ const DriverForm = (props) => {
     const userId =localStorage.getItem('userId')
     const navigate = useNavigate()
 
+
+    const driverLicense = (photo) => {
+
+    }
+
     const handleRegister = async (e) => {
         e.preventDefault();
 

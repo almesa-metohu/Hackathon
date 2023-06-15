@@ -39,6 +39,7 @@ const Register = () => {
             }
         }   catch (error) {
             console.log(error)
+            setValidation(error.response.data.errors)
         }
     };
 
@@ -50,6 +51,7 @@ const Register = () => {
                     placeholder='Enter your first name'
                     onChange={(e) => setFirstName(e.target.value)}
                 />
+                {validation.firstName? validation.firstName.message:""}
             </FormControl>
             <FormControl id="last-name" isRequired>
                 <FormLabel>Last Name</FormLabel>
@@ -57,6 +59,7 @@ const Register = () => {
                     placeholder='Enter your last name'
                     onChange={(e) => setLastName(e.target.value)}
                 />
+                {validation.lastName? validation.lastName.message:""}
             </FormControl>
             <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
@@ -64,6 +67,8 @@ const Register = () => {
                     placeholder='Enter your email'
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                                {validation.email? validation.email.message:""}
+
             </FormControl>
             <FormControl id="location" isRequired>
                 <FormLabel>Location</FormLabel>
@@ -102,6 +107,8 @@ const Register = () => {
                     <option value='Tirane'>Tirane</option>
                     <option value='Vlore'>Vlore</option>
                 </Select>
+                {validation.location? validation.location.message:""}
+
             </FormControl>
             <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
@@ -117,6 +124,8 @@ const Register = () => {
                         </Button>
                     </InputRightElement>
                 </InputGroup>
+                {validation.password? validation.password.message:""}
+
             </FormControl>
             <FormControl id="confirm-password" isRequired>
                 <FormLabel>Confirm Password</FormLabel>
@@ -132,6 +141,8 @@ const Register = () => {
                         </Button>
                     </InputRightElement>
                 </InputGroup>
+                {validation.confirmPassword? validation.confirmPassword.message:""}
+
             </FormControl>
 
             <Button
