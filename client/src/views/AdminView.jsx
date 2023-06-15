@@ -60,13 +60,21 @@ const AdminView = () => {
             <Button size="sm" colorScheme="red" onClick={logOut}>
                 Log Out
             </Button>
-            <Box width="80%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
-                <Flex alignItems="center">
+            <Box width="97%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
+                <Flex alignItems="center" flexDirection='column'>
                     <div>
                         <p>Request</p>
                         {requests ? (
                             requests.map((request, index) => (
                                 <div key={index} style={{ width: '100%' }}>
+                                    <Box display='flex'
+                                        justifyContent='space-between'
+                                        width="90%"
+                                        padding="4"
+                                        borderWidth="1px"
+                                        borderRadius="md"
+                                        _hover={{ outline: '2px solid teal' }}
+                                    ></Box>
                                     {request.firstName}{' '}
                                     <Button size="sm" colorScheme="teal" onClick={() => AcceptRequest(request._id)}>
                                         Accept
