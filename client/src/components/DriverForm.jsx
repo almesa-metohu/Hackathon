@@ -8,11 +8,6 @@ const DriverForm = (props) => {
     const userId =localStorage.getItem('userId')
     const navigate = useNavigate()
 
-
-    const driverLicense = (photo) => {
-
-    }
-
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -29,7 +24,6 @@ const DriverForm = (props) => {
 
     return (
         <>
-        {/* <p>tesdt</p>  */}
         <Center>
             
             <VStack spacing='5px' maxWidth={400} mt={10}>

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import FeaturedLocations from "../components/FeaturedLocations";
 import Navbar from "../components/NavBar";
 import Profile from "../components/List";
 import io from 'socket.io-client';
