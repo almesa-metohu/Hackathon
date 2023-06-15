@@ -20,10 +20,6 @@ const Register = () => {
         setShow(!show)
     }
 
-    const postDetails = (photo) =>{
-
-    }
-
     const handleRegister = async (e) => {
         e.preventDefault();
 
