@@ -10,6 +10,7 @@ import {
     TabPanels,
     Tabs,
     Text,
+    Image
 } from "@chakra-ui/react";
 
 const Authenticate = ({setRefresh}) => {
@@ -20,13 +21,14 @@ const Authenticate = ({setRefresh}) => {
             <Box
                 display="flex"
                 justifyContent="center"
-                p={3}
                 bg="white"
                 w="100%"
+                p='20px 0 0 0'
                 m="40px 0 15px 0"
                 borderRadius="lg"
                 borderWidth="1px"
             >
+                <Image width='50px' height='50px' src="https://img.freepik.com/premium-vector/car-pin-location-logo-design_412311-3774.jpg" />
                 <Text fontSize="4xl" fontFamily="Work sans">Ikim? IKIM!</Text>
             </Box>
             <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
