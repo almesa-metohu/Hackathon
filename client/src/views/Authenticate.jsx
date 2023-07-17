@@ -28,7 +28,7 @@ const Authenticate = ({setRefresh}) => {
                 borderRadius="lg"
                 borderWidth="1px"
             >
-                <Image width='50px' height='50px' src="https://img.freepik.com/premium-vector/car-pin-location-logo-design_412311-3774.jpg" />
+                <Image width='60px' height='50px' src="https://i.ibb.co/ZB1QXLz/image-1.png" />
                 <Text fontSize="4xl" fontFamily="Work sans">Ikim? IKIM!</Text>
             </Box>
             <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">

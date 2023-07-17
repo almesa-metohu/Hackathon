@@ -51,7 +51,7 @@ const Register = () => {
                     placeholder='Enter your first name'
                     onChange={(e) => setFirstName(e.target.value)}
                 />
-                {validation.firstName? validation.firstName.message:""}
+                {validation.firstName? <p color="red">{validation.firstName.message}</p>:""}
             </FormControl>
             <FormControl id="last-name" isRequired>
                 <FormLabel>Last Name</FormLabel>
@@ -59,7 +59,7 @@ const Register = () => {
                     placeholder='Enter your last name'
                     onChange={(e) => setLastName(e.target.value)}
                 />
-                {validation.lastName? validation.lastName.message:""}
+                {validation.lastName? <p color="red">{validation.lastName.message}</p>:""}
             </FormControl>
             <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
@@ -67,7 +67,7 @@ const Register = () => {
                     placeholder='Enter your email'
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                                {validation.email? validation.email.message:""}
+                {validation.email? <p color="red">{validation.email.message}</p>:""}
 
             </FormControl>
             <FormControl id="location" isRequired>
@@ -107,7 +107,7 @@ const Register = () => {
                     <option value='Tirane'>Tirane</option>
                     <option value='Vlore'>Vlore</option>
                 </Select>
-                {validation.location? validation.location.message:""}
+                {validation.location? <p color="red">{validation.location.message}</p>:""}
 
             </FormControl>
             <FormControl id="password" isRequired>
@@ -118,13 +118,13 @@ const Register = () => {
                         placeholder='Enter your password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <InputRightElement>
+                    <InputRightElement width='65px'>
                         <Button h='1.75rem' size='sm' onClick={showPass}>
                             {show ? 'Hide' : 'Show'}
                         </Button>
                     </InputRightElement>
                 </InputGroup>
-                {validation.password? validation.password.message:""}
+                {validation.password? <p color="red">{validation.password.message}</p>:""}
 
             </FormControl>
             <FormControl id="confirm-password" isRequired>
@@ -135,18 +135,18 @@ const Register = () => {
                         placeholder='Enter your password'
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
-                    <InputRightElement>
+                    <InputRightElement width='65px'>
                         <Button h='1.75rem' size='sm' onClick={showPass}>
                             {show ? 'Hide' : 'Show'}
                         </Button>
                     </InputRightElement>
                 </InputGroup>
-                {validation.confirmPassword? validation.confirmPassword.message:""}
+                {validation.confirmPassword? <p color="red">{validation.confirmPassword.message}</p>:""}
 
             </FormControl>
 
             <Button
-                colorScheme="blue"
+                colorScheme="teal"
                 width='100%'
                 style={{marginTop: 15}}
                 onClick={handleRegister}

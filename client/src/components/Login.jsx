@@ -57,8 +57,8 @@ const Login = ({setRefresh}) => {
                         placeholder='Enter your password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <InputRightElement>
-                        <Button h='1.75rem' size='sm' onClick={showPass}>
+                    <InputRightElement width='65px'>
+                        <Button marginRight={4} h='1.75rem' size='sm' onClick={showPass}>
                             {show ? 'Hide' : 'Show'}
                         </Button>
                     </InputRightElement>
@@ -68,7 +68,7 @@ const Login = ({setRefresh}) => {
             </FormControl>
 
             <Button
-                colorScheme="blue"
+                colorScheme="teal"
                 width='100%'
                 style={{marginTop: 15}}
                 onClick={handleLogin}

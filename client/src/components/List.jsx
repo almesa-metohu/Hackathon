@@ -55,7 +55,7 @@ const Profile = (props) => {
       {rides ? rides.map((ride, index) => (
         <div key={index}>
           <Flex justifyContent="center" alignItems="center">
-            <Box width="80%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
+            <Box width="90%" padding="4" borderWidth="1px" borderRadius="md" borderColor={'teal.400'} _hover={{ outline: '2px solid teal' }}>
               <Flex alignItems="center">
                 <Box marginRight={4}>
                   {<Image
@@ -103,6 +103,7 @@ const Profile = (props) => {
               </ModalFooter>
             </ModalContent>
           </Modal>
+          <br/>
         </div>
       )) : ""}
     </div>

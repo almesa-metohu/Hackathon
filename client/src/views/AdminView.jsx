@@ -55,62 +55,50 @@ const AdminView = () => {
     };
 
     return (
-        <VStack spacing={4} align="start">
-            <Heading size="md">User Management</Heading>
-            <Button size="sm" colorScheme="red" onClick={logOut}>
+        <VStack spacing={4} py={8}>
+            <Heading size="m" color='teal'>User Management</Heading>
+            <Button size="sm" bg={'teal.800'} color={'white'} onClick={logOut}>
                 Log Out
             </Button>
-            <Box width="97%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
-                <Flex alignItems="center" flexDirection='column'>
-                    <div>
-                        <p>Request</p>
-                        {requests ? (
-                            requests.map((request, index) => (
-                                <div key={index} style={{ width: '100%' }}>
-                                    {request.firstName}{' '}
-                                    <Button size="sm" colorScheme="teal" onClick={() => AcceptRequest(request._id)}>
-                                        Accept
-                                    </Button>{' '}
-                                    <Button size="sm" colorScheme="red" onClick={() => DeclineRequest(request._id)}>
-                                        Decline
-                                    </Button>
-                                </div>
-                            ))
-                        ) : (
-                            ''
-                        )}
-                    </div>
-                </Flex>
+            <Box width="80%" padding="4" borderWidth="1px" borderRadius="md" p={4} _hover={{ outline: '2px solid teal' }}>
+                <Heading size="sm" mb={2}>
+                    Requests
+                </Heading>
+                {requests && requests.length > 0 ? (
+                    requests.map((request) => (
+                        <Flex key={request._id} justifyContent="space-between" alignItems="center">
+                            <Box>{request.firstName}</Box>
+                            <Flex>
+                                <Button size="sm" colorScheme="teal" onClick={() => AcceptRequest(request._id)}>
+                                    Accept
+                                </Button>
+                                <Button size="sm" colorScheme="red" ml={2} onClick={() => DeclineRequest(request._id)}>
+                                    Decline
+                                </Button>
+                            </Flex>
+                        </Flex>
+                    ))
+                ) : (
+                    <Box>No requests found.</Box>
+                )}
             </Box>
 
-            <Box width="97%" padding="4" borderWidth="1px" borderRadius="md" _hover={{ outline: '2px solid teal' }}>
-                <Flex alignItems="center" flexDirection='column'>
-                        <p>Drivers</p>
-                        {drivers ? (
-                            drivers.map((request, index) => (
-                                <div key={index} style={{ width: '100%' }}>
-                                    <Box display='flex'
-                                        justifyContent='space-between'
-                                        width="90%"
-                                        padding="4"
-                                        borderWidth="1px"
-                                        borderRadius="md"
-                                        _hover={{ outline: '2px solid teal' }}
-                                    >
-                                        <Flex alignItems="center" justifyContent='space-between' width='100%'>
-                                            {' '}
-                                            <Link to={`/driver/${request._id}`}>{request.firstName}</Link>{' '}
-                                            <Button size="sm" colorScheme="red" onClick={() => removeDriver(request._id)}>
-                                                Remove Driver
-                                            </Button>{' '}
-                                        </Flex>
-                                    </Box>
-                                </div>
-                            ))
-                        ) : (
-                            ''
-                        )}
-                </Flex>
+            <Box width="80%" padding="4" borderWidth="1px" borderRadius="md" p={4} _hover={{ outline: '2px solid teal' }}>
+                <Heading size="sm" mb={2}>
+                    Drivers
+                </Heading>
+                {drivers && drivers.length > 0 ? (
+                    drivers.map((driver) => (
+                        <Flex key={driver._id} justifyContent="space-between" alignItems="center" mb={2}>
+                            <Link to={`/driver/${driver._id}`}>{driver.firstName}</Link>
+                            <Button size="sm" colorScheme="red" onClick={() => removeDriver(driver._id)}>
+                                Remove Driver
+                            </Button>
+                        </Flex>
+                    ))
+                ) : (
+                    <Box>No drivers found.</Box>
+                )}
             </Box>
         </VStack>
     );
