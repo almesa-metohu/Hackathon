@@ -6,3 +6,9 @@ Ikim? IKIM! is a user-friendly carpooling application that aims to revolutionize
 ![Driver Registration](driverRegistration.PNG)
 ![Admin View](adminView.PNG)
 ![Add a Ride Page](addRide.PNG)
+
+**Developed by:** Almesa Metohu, Bruno Skendaj, Keidi Sheremeti
+
+## Contact
+
+If you have any questions or feedback, please feel free to reach out to us at [almesametohu11@gmail.com](mailto:almesametohu11@gmail.com).
